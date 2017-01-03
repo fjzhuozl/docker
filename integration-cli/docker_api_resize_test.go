@@ -4,11 +4,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/docker/docker/pkg/integration/checker"
+	"github.com/docker/docker/integration-cli/checker"
 	"github.com/go-check/check"
 )
 
-func (s *DockerSuite) TestResizeApiResponse(c *check.C) {
+func (s *DockerSuite) TestResizeAPIResponse(c *check.C) {
 	out, _ := runSleepingContainer(c, "-d")
 	cleanedContainerID := strings.TrimSpace(out)
 
@@ -18,7 +18,7 @@ func (s *DockerSuite) TestResizeApiResponse(c *check.C) {
 	c.Assert(err, check.IsNil)
 }
 
-func (s *DockerSuite) TestResizeApiHeightWidthNoInt(c *check.C) {
+func (s *DockerSuite) TestResizeAPIHeightWidthNoInt(c *check.C) {
 	out, _ := runSleepingContainer(c, "-d")
 	cleanedContainerID := strings.TrimSpace(out)
 
@@ -28,7 +28,7 @@ func (s *DockerSuite) TestResizeApiHeightWidthNoInt(c *check.C) {
 	c.Assert(err, check.IsNil)
 }
 
-func (s *DockerSuite) TestResizeApiResponseWhenContainerNotStarted(c *check.C) {
+func (s *DockerSuite) TestResizeAPIResponseWhenContainerNotStarted(c *check.C) {
 	out, _ := dockerCmd(c, "run", "-d", "busybox", "true")
 	cleanedContainerID := strings.TrimSpace(out)
 

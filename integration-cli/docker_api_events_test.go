@@ -9,12 +9,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/docker/docker/pkg/integration/checker"
+	"github.com/docker/docker/integration-cli/checker"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/go-check/check"
 )
 
-func (s *DockerSuite) TestEventsApiEmptyOutput(c *check.C) {
+func (s *DockerSuite) TestEventsAPIEmptyOutput(c *check.C) {
 	type apiResp struct {
 		resp *http.Response
 		err  error
@@ -35,7 +35,7 @@ func (s *DockerSuite) TestEventsApiEmptyOutput(c *check.C) {
 	}
 }
 
-func (s *DockerSuite) TestEventsApiBackwardsCompatible(c *check.C) {
+func (s *DockerSuite) TestEventsAPIBackwardsCompatible(c *check.C) {
 	since := daemonTime(c).Unix()
 	ts := strconv.FormatInt(since, 10)
 

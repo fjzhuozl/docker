@@ -3,8 +3,9 @@ package main
 import (
 	"strings"
 
-	"github.com/docker/docker/pkg/integration/checker"
+	"github.com/docker/docker/integration-cli/checker"
 	"github.com/docker/docker/pkg/stringid"
+	icmd "github.com/docker/docker/pkg/testutil/cmd"
 	"github.com/go-check/check"
 )
 
@@ -61,9 +62,11 @@ func (s *DockerSuite) TestRenameCheckNames(c *check.C) {
 	name := inspectField(c, newName, "Name")
 	c.Assert(name, checker.Equals, "/"+newName, check.Commentf("Failed to rename container %s", name))
 
-	name, err := inspectFieldWithError("first_name", "Name")
-	c.Assert(err, checker.NotNil, check.Commentf(name))
-	c.Assert(err.Error(), checker.Contains, "No such container, image or task: first_name")
+	result := dockerCmdWithResult("inspect", "-f={{.Name}}", "--type=container", "first_name")
+	c.Assert(result, icmd.Matches, icmd.Expected{
+		ExitCode: 1,
+		Err:      "No such container: first_name",
+	})
 }
 
 func (s *DockerSuite) TestRenameInvalidName(c *check.C) {
